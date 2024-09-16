@@ -1,0 +1,48 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="flex flex-wrap -mx-4">
+        <div class="w-full md:w-1/4 px-4 mb-8 md:mb-0">
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-800">Categories</h3>
+                <ul class="space-y-2">
+                    <li class="{% if not category %}font-bold text-primary{% else %}text-gray-600 hover:text-primary{% endif %}">
+                        <a href="{% url "shop:product_list" %}" class="block py-1">All</a>
+                    </li>
+                    {% for c in categories %}
+                    <li class="{% if category.slug == c.slug %}font-bold text-primary{% else %}text-gray-600 hover:text-primary{% endif %}">
+                        <a href="{{ c.get_absolute_url }}" class="block py-1">{{ c.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="w-full md:w-3/4 px-4">
+            <h1 class="text-3xl font-bold mb-6 text-gray-800">
+                {% if category %}{{ category.name }}{% else %}Products{% endif %}
+            </h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for product in products %}
+                <div class="bg-white shadow-md rounded-lg overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <a href="{{ product.get_absolute_url }}" class="block">
+                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}"
+                             alt="{{ product.name }}"
+                             class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h2 class="text-lg font-semibold mb-2 text-gray-800">{{ product.name }}</h2>
+                            <p class="text-primary font-bold">${{ product.price }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

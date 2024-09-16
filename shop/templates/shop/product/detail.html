@@ -1,0 +1,42 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="md:flex">
+            <div class="md:w-1/2">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"
+                     alt="{{ product.name }}"
+                     class="w-full h-96 object-cover">
+            </div>
+            <div class="md:w-1/2 p-8">
+                <div class="uppercase tracking-wide text-sm text-primary font-semibold">
+                    <a href="{{ product.category.get_absolute_url }}" class="hover:underline">
+                        {{ product.category }}
+                    </a>
+                </div>
+                <h1 class="mt-2 text-3xl font-bold text-gray-900">{{ product.name }}</h1>
+                <p class="mt-4 text-2xl font-bold text-primary">${{ product.price }}</p>
+                <div class="mt-4 text-gray-600">
+                    {{ product.description|linebreaks }}
+                </div>
+                <div class="mt-8">
+                    <button class="bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-8">
+        <a href="{% url 'shop:product_list' %}" class="text-primary hover:underline">
+            &larr; Back to product list
+        </a>
+    </div>
+</div>
+{% endblock %}
