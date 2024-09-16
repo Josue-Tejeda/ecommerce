@@ -12,6 +12,7 @@ media
 
 # Static files
 staticfiles/
+products/
 
 # Virtual environment
 venv/
