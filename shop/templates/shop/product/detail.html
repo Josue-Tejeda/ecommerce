@@ -12,7 +12,7 @@
             <div class="md:w-1/2">
                 <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"
                      alt="{{ product.name }}"
-                     class="w-full h-96 object-cover">
+                     class="w-full h-full object-cover">
             </div>
             <div class="md:w-1/2 p-8">
                 <div class="uppercase tracking-wide text-sm text-primary font-semibold">
@@ -26,9 +26,21 @@
                     {{ product.description|linebreaks }}
                 </div>
                 <div class="mt-8">
-                    <button class="bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300">
-                        Add to Cart
-                    </button>
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+                        <select id="quantity" name="quantity" class="mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md">
+                            {% for value, label in cart_product_form.quantity.field.choices %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <input type="hidden" name="update" value="False">
+                        
+                        <button type="submit" class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded hover:bg-primary-dark">
+                            Add to cart
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,12 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from . import views
 
 from app import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shop.urls'), name='shop'),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('products/', include('shop.urls', namespace='shop')),
+    path('home', views.home, name='home'),
 ]
 
 if settings.DEBUG:

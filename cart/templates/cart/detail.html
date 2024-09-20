@@ -1,0 +1,91 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Your Shopping Cart
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Your Shopping Cart</h1>
+    
+    {% if cart %}
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Image</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Product</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Quantity</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Remove</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Unit price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Price</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for item in cart %}
+                        {% with product=item.product %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="{{ product.get_absolute_url }}">
+                                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"
+                                             alt="{{ product.name }}"
+                                             class="w-16 h-16 object-cover rounded">
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">{{ product.name }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                        <div class="flex gap-2 align-middle">
+                                            {{ item.update_quantity_form.quantity|add_class:"mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md" }}
+                                            {{ item.update_quantity_form.override }}
+                                            <input type="submit" value="Update" class="text-blue-600 hover:text-blue-900 cursor-pointer">
+                                        </div>
+                                    {% csrf_token %}
+                                    </form>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <form action="{% url "cart:cart_remove" product.id %}" method="post">
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Remove</button>
+                                        {% csrf_token %}
+                                    </form>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-500">${{ item.price }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">${{ item.total_price }}</div>
+                                </td>
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                    <tr class="bg-gray-50">
+                        <td colspan="5" class="px-6 py-4 whitespace-nowrap text-right font-medium">Total:</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-lg font-bold text-primary">${{ cart.get_total_price }}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-8 flex justify-between items-center">
+            <a href="{% url "shop:product_list" %}" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300 transition duration-300">
+                Continue shopping
+            </a>
+            <a href="#" class="bg-primary text-white py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300">
+                Checkout
+            </a>
+        </div>
+    {% else %}
+        <p class="text-center text-gray-600">Your shopping cart is empty.</p>
+        <div class="mt-8 text-center">
+            <a href="{% url "shop:product_list" %}" class="bg-primary text-white py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300">
+                Go shopping
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
