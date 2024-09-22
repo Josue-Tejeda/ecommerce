@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'shop.apps.ShopConfig',
+    'payment.apps.PaymentConfig',
     
     'widget_tweaks',
 ]
@@ -133,3 +135,7 @@ EMAIL_PORT = 1025
 EMAIL_USE_TLS = False 
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = 'admin@ecommerce.com'
+
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_API_VERSION = '2024-04-10'

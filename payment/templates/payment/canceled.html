@@ -1,0 +1,34 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Payment canceled{% endblock %}
+
+{% block content %}
+<div class="min-h-auto bg-gray-100 flex justify-center px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md mt-8 mb-24">
+        <div>
+            <svg class="mx-auto h-12 w-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                Payment Not Processed
+            </h1>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                There was a problem processing your payment.
+            </p>
+        </div>
+        <div class="mt-8 space-y-6">
+            <p class="text-center text-md text-gray-700">
+                We apologize for the inconvenience. Please try again or contact our support team if the problem persists.
+            </p>
+            <div class="flex items-center justify-center space-x-4">
+                <a href="{% url 'payment:process' %}" class="group relative w-full sm:w-auto flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Try Again
+                </a>
+                <a href="{% url 'shop:product_list' %}" class="group relative w-full sm:w-auto flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Back to Shop
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

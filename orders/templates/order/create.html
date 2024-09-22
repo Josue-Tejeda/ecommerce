@@ -1,5 +1,8 @@
 {% extends "shop/base.html" %}
+{% load widget_tweaks %}
+
 {% block title %}Checkout{% endblock %}
+
 {% block content %}
 <div class="max-w-4xl mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">Checkout</h1>
@@ -26,6 +29,9 @@
         <div>
             <form method="post" class="bg-white shadow-md rounded-lg p-6">
                 {% csrf_token %}
+                <ul class="text-red-500 text-sm mb-2">
+                    <li>{{ form.errors }}</li>
+                </ul>
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>

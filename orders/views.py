@@ -7,6 +7,7 @@ from .tasks import order_created_email
 
 def order_created(request, order_id):
     order = Order.objects.get(id=order_id)
+    order_created_email.delay(order.id, request.user.email)
     return render(request, 'order/created.html', {'order': order})
 
 def order_create(request):
@@ -28,8 +29,8 @@ def order_create(request):
                     quantity=item['quantity']
                     )
             cart.clear()
-            order_created_email.delay(order.id, request.user.email)
-            return redirect('orders:order_created', order_id=order.id)
+            request.session['order_id'] = order.id
+            return redirect('payment:process')
     else:
         form = OrderCreateForm()
     return render(request, 'order/create.html', {'cart': cart, 'form': form})

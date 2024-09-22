@@ -1,0 +1,50 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}Pay your order{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Order summary</h1>
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="w-full table-auto">
+            <thead class="bg-gray-200 text-gray-700">
+                <tr>
+                    <th class="px-4 py-2">Image</th>
+                    <th class="px-4 py-2">Product</th>
+                    <th class="px-4 py-2">Price</th>
+                    <th class="px-4 py-2">Quantity</th>
+                    <th class="px-4 py-2">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.items.all %}
+                <tr class="{% cycle 'bg-gray-50' 'bg-white' %} hover:bg-gray-100">
+                    <td class="px-4 py-2">
+                        <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"
+                             alt="{{ item.product.name }}"
+                             class="w-16 h-16 object-cover rounded">
+                    </td>
+                    <td class="px-4 py-2">{{ item.product.name }}</td>
+                    <td class="px-4 py-2 text-right">${{ item.price }}</td>
+                    <td class="px-4 py-2 text-center">{{ item.quantity }}</td>
+                    <td class="px-4 py-2 text-right font-semibold">${{ item.get_cost }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="bg-gray-200 font-bold">
+                    <td colspan="4" class="px-4 py-2 text-right">Total</td>
+                    <td class="px-4 py-2 text-right">${{ order.get_total_cost }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-8 flex justify-end">
+        <form action="{% url "payment:process" %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">
+                Pay now
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
