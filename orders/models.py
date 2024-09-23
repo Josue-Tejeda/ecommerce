@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from .data import CREATED, ORDER_STATUS_CHOICES
 
@@ -6,6 +7,7 @@ class Order(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    stripe_id = models.CharField(max_length=250, blank=True)
     status = models.SmallIntegerField(choices=ORDER_STATUS_CHOICES, default=CREATED)
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True)
@@ -23,6 +25,17 @@ class Order(models.Model):
     
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
+    
+    def get_stripe_url(self):
+        if not self.stripe_id:
+            return ''
+        
+        if '_test_' in settings.STRIPE_SECRET_KEY:
+            path = '/test/'
+        else:
+            path = '/'
+            
+        return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
     
 
 class OrderItem(models.Model):

@@ -129,6 +129,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_SESSION_ID = 'cart'
 
+FROM_EMAIL = 'admin@ecommerce.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
@@ -139,3 +140,4 @@ DEFAULT_FROM_EMAIL = 'admin@ecommerce.com'
 STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_API_VERSION = '2024-04-10'
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')

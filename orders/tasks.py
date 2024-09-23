@@ -2,6 +2,8 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+
+from app.settings import FROM_EMAIL
 from .models import Order
 
 @shared_task
@@ -18,7 +20,7 @@ def order_created_email(order_id, user_email):
     mail_sent = send_mail(
         subject,
         plain_message,
-        'admin@app.com',
+        FROM_EMAIL,
         [user_email],
         html_message=html_message
     )
