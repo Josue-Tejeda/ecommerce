@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'shop.apps.ShopConfig',
     'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
     
     'widget_tweaks',
 ]

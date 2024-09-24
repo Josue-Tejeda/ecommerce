@@ -1,6 +1,8 @@
+from coupons.forms import CouponApplyForm
 from django.shortcuts import render
 from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.contrib import messages
 
 from cart.forms import CartAddProductForm
 from shop.models import Product
@@ -31,4 +33,13 @@ def cart_detail(request):
     
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
-    return render(request, 'cart/detail.html', {'cart': cart})
+    
+    coupon_apply_form = CouponApplyForm()
+    error_message = messages.get_messages(request)
+    
+    context = {
+        'cart': cart,
+        'coupon_apply_form': coupon_apply_form,
+        'error_message': error_message
+    }
+    return render(request, 'cart/detail.html', context)

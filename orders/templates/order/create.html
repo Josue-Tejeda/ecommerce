@@ -18,12 +18,18 @@
                             <span class="font-semibold text-gray-900">${{ item.total_price }}</span>
                         </li>
                     {% endfor %}
+                    {% if cart.coupon %}
+                    <li class="flex justify-between items-center border-b border-gray-200 py-2 last:border-b-0">
+                        <span class="text-gray-700">Coupon: "{{ cart.coupon.code }}"</span>
+                        <span class="text-red-600 font-semibold">- ${{ cart.get_discount|floatformat:2 }}</span>
+                    </li>
+                    {% endif %}
                 </ul>
                 <div class="flex justify-between items-center pt-4 border-t border-gray-200">
                     <span class="text-lg font-bold text-gray-900">Total:</span>
-                    <span class="text-lg font-bold text-primary">${{ cart.get_total_price }}</span>
+                    <span class="text-lg font-bold text-primary">${{ cart.get_total_price_after_discount|floatformat:2 }}</span>
                 </div>
-            </div>
+            </div>            
         </div>
         
         <div>

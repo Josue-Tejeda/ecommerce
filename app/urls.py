@@ -11,6 +11,7 @@ urlpatterns = [
     path('products/', include('shop.urls', namespace='shop')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('payment/', include('payment.urls', namespace='payment')),
+    path('coupons/', include('coupons.urls', namespace='coupons')),
     path('', views.home, name='home'),
 ]
 
