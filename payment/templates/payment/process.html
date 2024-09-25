@@ -31,9 +31,26 @@
                     <td class="px-4 py-2 text-right font-semibold">${{ item.get_cost }}</td>
                 </tr>
                 {% endfor %}
-                <tr class="bg-gray-200 font-bold">
-                    <td colspan="4" class="px-4 py-2 text-right">Total</td>
-                    <td class="px-4 py-2 text-right">${{ order.get_total_cost }}</td>
+                {% if order.coupon %}
+                <tr class="bg-gray-50">
+                    <td class="px-4 py-2 font-semibold">Subtotal</td>
+                    <td colspan="3"></td>
+                    <td class="px-4 py-2 text-right font-semibold">${{ order.get_total_cost_before_discount|floatformat:2 }}</td>
+                </tr>
+                <tr class="bg-gray-50">
+                    <td class="px-4 py-2 text-blue-400 font-semibold">
+                        "{{ order.coupon.code }}" coupon ({{ order.discount }}% off)
+                    </td>
+                    <td colspan="3"></td>
+                    <td class="px-4 py-2 text-right text-blue-400 font-semibold">
+                        - ${{ order.get_discount|floatformat:2 }}
+                    </td>
+                </tr>
+                {% endif %}
+                <tr class="bg-gray-200">
+                    <td class="px-4 py-2 font-bold">Total</td>
+                    <td colspan="3"></td>
+                    <td class="px-4 py-2 text-right font-bold">${{ order.get_total_cost|floatformat:2 }}</td>
                 </tr>
             </tbody>
         </table>
