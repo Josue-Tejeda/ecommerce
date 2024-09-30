@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-30 10:09-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: orders/data.py:10
+msgid "Created"
+msgstr ""
+
+#: orders/data.py:11
+msgid "Paid"
+msgstr ""
+
+#: orders/data.py:12
+msgid "Shipped"
+msgstr ""
+
+#: orders/data.py:13
+msgid "Cancelled"
+msgstr ""
+
+#: orders/data.py:14
+msgid "Delivered"
+msgstr ""
+
+#: orders/models.py:11
+msgid "first name"
+msgstr ""
+
+#: orders/models.py:13
+msgid "last name"
+msgstr ""
+
+#: orders/models.py:23
+msgid "status"
+msgstr ""
+
+#: orders/models.py:25
+msgid "email"
+msgstr ""
+
+#: orders/models.py:32
+msgid "postal code"
+msgstr ""
+
+#: orders/models.py:34
+msgid "city"
+msgstr ""
+
+#: orders/templates/order/create.html:9
+msgid "Checkout"
+msgstr ""
+
+#: orders/templates/order/create.html:14
+msgid "Order Summary"
+msgstr ""
+
+#: orders/templates/order/create.html:45
+msgid "First Name"
+msgstr ""
+
+#: orders/templates/order/create.html:49
+msgid "Last Name"
+msgstr ""
+
+#: orders/templates/order/create.html:54
+msgid "Email"
+msgstr ""
+
+#: orders/templates/order/create.html:58
+msgid "Phone"
+msgstr ""
+
+#: orders/templates/order/create.html:62
+msgid "Address"
+msgstr ""
+
+#: orders/templates/order/create.html:67
+msgid "Postal Code"
+msgstr ""
+
+#: orders/templates/order/create.html:71
+msgid "City"
+msgstr ""
+
+#: orders/templates/order/create.html:78
+msgid "Place Order"
+msgstr ""
+
+#: orders/templates/order/created.html:9
+msgid "Thank you!"
+msgstr ""
+
+#: orders/templates/order/created.html:10
+msgid "your order has been successfully completed"
+msgstr ""
+
+#: orders/templates/order/created.html:11
+msgid "Your order reference #"
+msgstr ""
+
+#: orders/templates/order/created.html:16
+msgid "Continue shopping"
+msgstr ""
+
+#: orders/templates/order/created.html:19
+msgid "Order detail"
+msgstr ""

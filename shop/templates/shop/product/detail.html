@@ -1,8 +1,11 @@
 {% extends "shop/base.html" %}
 {% load static %}
+{% load i18n %}
+
 {% block title %}
     {{ product.name }}
 {% endblock %}
+
 {% block content %}
 <div class="container mx-auto px-4 py-8">
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -35,7 +38,7 @@
                         <input type="hidden" name="update" value="False">
                         
                         <button type="submit" class="mt-4 w-full bg-primary text-white font-bold py-2 px-4 rounded hover:bg-primary-dark transition duration-300">
-                            Add to cart
+                            {% trans 'Add to cart' %}
                         </button>
                     </form>
                 </div>
@@ -49,7 +52,7 @@
     </div>
     {% if recommended_products %}
     <div class="mt-8">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">People who bought this also bought</h3>
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">{% trans 'People who bought this also bought' %}</h3>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {% for p in recommended_products %}
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">

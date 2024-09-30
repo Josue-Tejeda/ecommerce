@@ -9,3 +9,6 @@ celery==5.4.0
 stripe==9.3.0
 python-decouple==3.8
 WeasyPrint==62.3
+django-rosetta==0.10.0
+django-parler==2.3
+django-localflavor==4.0

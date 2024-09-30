@@ -1,5 +1,7 @@
 {% extends "shop/base.html" %}
 {% load static %}
+{% load i18n static %}
+
 
 {% block title %}Pay your order{% endblock %}
 
@@ -10,11 +12,11 @@
         <table class="w-full table-auto">
             <thead class="bg-gray-200 text-gray-700">
                 <tr>
-                    <th class="px-4 py-2">Image</th>
-                    <th class="px-4 py-2">Product</th>
-                    <th class="px-4 py-2">Price</th>
-                    <th class="px-4 py-2">Quantity</th>
-                    <th class="px-4 py-2">Total</th>
+                    <th class="px-4 py-2">{% trans 'Image' %}</th>
+                    <th class="px-4 py-2">{% trans 'Product' %}</th>
+                    <th class="px-4 py-2">{% trans 'Price' %}</th>
+                    <th class="px-4 py-2">{% trans 'Quantity' %}</th>
+                    <th class="px-4 py-2">{% trans 'Total' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +35,7 @@
                 {% endfor %}
                 {% if order.coupon %}
                 <tr class="bg-gray-50">
-                    <td class="px-4 py-2 font-semibold">Subtotal</td>
+                    <td class="px-4 py-2 font-semibold">{% trans 'Subtotal' %}</td>
                     <td colspan="3"></td>
                     <td class="px-4 py-2 text-right font-semibold">${{ order.get_total_cost_before_discount|floatformat:2 }}</td>
                 </tr>
@@ -48,7 +50,7 @@
                 </tr>
                 {% endif %}
                 <tr class="bg-gray-200">
-                    <td class="px-4 py-2 font-bold">Total</td>
+                    <td class="px-4 py-2 font-bold">{% trans 'Total' %}</td>
                     <td colspan="3"></td>
                     <td class="px-4 py-2 text-right font-bold">${{ order.get_total_cost|floatformat:2 }}</td>
                 </tr>

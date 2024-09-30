@@ -2,24 +2,39 @@ from decimal import Decimal
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from .data import CREATED, ORDER_STATUS_CHOICES
 from coupons.models import Coupon
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(verbose_name=_('first name'), max_length=50)
+    
+    last_name = models.CharField(verbose_name=_('last name'), max_length=50)
+    
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    
     coupon = models.ForeignKey(Coupon, related_name='orders', null=True, blank=True, on_delete=models.SET_NULL)
+    
     discount = models.IntegerField(default=0, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    
     stripe_id = models.CharField(max_length=250, blank=True)
-    status = models.SmallIntegerField(choices=ORDER_STATUS_CHOICES, default=CREATED)
-    email = models.EmailField()
+    
+    status = models.SmallIntegerField(_('status'), choices=ORDER_STATUS_CHOICES, default=CREATED)
+    
+    email = models.EmailField(verbose_name=_('email'), )
+    
+    
     phone = models.CharField(max_length=20, blank=True)
+    
     address = models.CharField(max_length=250)
-    postal_code = models.CharField(max_length=20)
-    city = models.CharField(max_length=100)
+    
+    postal_code = models.CharField(verbose_name=_('postal code'), max_length=20)
+    
+    city = models.CharField(verbose_name=_('city'), max_length=100)
+    
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
@@ -55,8 +70,11 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    
     product = models.ForeignKey('shop.Product', related_name='order_items', on_delete=models.CASCADE)
+    
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    
     quantity = models.PositiveIntegerField(default=1)
     
     def __str__(self):
